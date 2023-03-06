@@ -1,19 +1,22 @@
 package level.six;
 
-import java.lang.reflect.Array;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * @바구니_순서_바꾸기 https://www.acmicpc.net/problem/10812
  */
 public class BasketChange {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
-        int n = in.nextInt();
-        int m = in.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stk = new StringTokenizer(bf.readLine());
+        int n = Integer.parseInt(stk.nextToken());
+        int m = Integer.parseInt(stk.nextToken());
 
         int[] basket = new int[n];
 
@@ -22,9 +25,10 @@ public class BasketChange {
         }
 
         for (int i = 0; i < m; i++) {
-            int begin = in.nextInt();
-            int end = in.nextInt();
-            int mid = in.nextInt();
+            stk = new StringTokenizer(bf.readLine());
+            int begin = Integer.parseInt(stk.nextToken());
+            int end = Integer.parseInt(stk.nextToken());
+            int mid = Integer.parseInt(stk.nextToken());
 
             int targetBegin = begin;
 
@@ -32,32 +36,19 @@ public class BasketChange {
 
             tempBasket[begin - 1] = basket[mid - 1];
 
-            Arrays.stream(tempBasket).forEach(b -> System.out.print(b + " "));
-            System.out.println();
-
             for (int j = mid; j <= end - 1; j++) {
                 tempBasket[targetBegin++] = basket[j];
             }
 
-            Arrays.stream(tempBasket).forEach(b -> System.out.print(b + " "));
-            System.out.println();
-            System.out.println("Begin => " + begin);
-//
-            int pos = (mid - begin);
-            // TODO: Begin 처리
             for (int j = begin - 1; j < mid - 1; j++) {
-                System.out.println("J => " + j + " 넣을곳 => " + pos);
-                System.out.println("넣을값 => " + basket[j]);
-                tempBasket[pos++] = basket[j]; // 3 - (4 - 1)
+                tempBasket[(end - mid + 1) + j] = basket[j];
             }
-//
-            Arrays.stream(tempBasket).forEach(b -> System.out.print(b + " "));
 
             basket = tempBasket.clone();
 
         }
 
-//        Arrays.stream(basket).forEach(b -> System.out.print(b + " "));
+        Arrays.stream(basket).forEach(b -> System.out.print(b + " "));
     }
 }
 
