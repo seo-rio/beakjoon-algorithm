@@ -3,6 +3,7 @@ package level.seven;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /**
@@ -16,43 +17,31 @@ public class ColoredPaper {
 
         int colorPaperCount = Integer.parseInt(stk.nextToken());
 
-        int[][] papers = new int[colorPaperCount][2];
+        int[][] area = new int[100][100];
+
+        int count = 0;
 
         for (int i = 0; i < colorPaperCount; i++) {
             stk = new StringTokenizer(br.readLine(), " ");
-
             int left = Integer.parseInt(stk.nextToken());
             int bottom = Integer.parseInt(stk.nextToken());
 
-            papers[i] = new int[]{left, bottom};
-
-        }
-
-        int rLeft = 0;
-        int rBottom = 0;
-        for (int i = 0; i < 2; i++) {
-            int maxLeft = 0;
-            int minLeft = 0;
-            for (int j = 0; j < colorPaperCount; j++) {
-                if(maxLeft < papers[j][i]) {
-                    maxLeft = papers[j][i];
+            for (int j = left; j < left + 10; j++) {
+                for (int k = bottom; k < bottom + 10; k++) {
+                    area[j][k] = 1;
                 }
-
-                minLeft = minLeft == 0 ? papers[j][i] : minLeft;
-
-                if(minLeft > papers[j][i]) {
-                    minLeft = papers[j][i];
-                }
-            }
-
-            if(i == 0) {
-                rLeft = (maxLeft - minLeft);
-            } else {
-                rBottom = (maxLeft - minLeft);
             }
         }
 
-        System.out.println((colorPaperCount - 1) * 100 + rLeft * rBottom);
+        for (int[] row : area) {
+            for (int value : row) {
+                if (value == 1) {
+                    count++;
+                }
+            }
+        }
+
+        System.out.println(count);
 
     }
 
