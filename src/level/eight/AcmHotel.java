@@ -20,13 +20,13 @@ public class AcmHotel {
         for (int i = 0; i < caseCount; i++) {
             stk = new StringTokenizer(br.readLine(), " ");
             int h = Integer.parseInt(stk.nextToken());
-            String w = stk.nextToken();
+            int w = Integer.parseInt(stk.nextToken());
             int n = Integer.parseInt(stk.nextToken());
 
             int x = (int) Math.ceil((double) n / h);
-            int y = (int) Math.ceil((double) n % h);
+            int y = n - ((x - 1) * h);
 
-            String xFormat = String.format("%0" + w.length() + "d", x);
+            String xFormat = String.format("%02d", x);
 
             sb.append(y).append(xFormat).append("\n");
         }
