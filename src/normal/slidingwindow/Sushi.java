@@ -3,9 +3,8 @@ package normal.slidingwindow;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Sushi {
 
@@ -23,94 +22,48 @@ public class Sushi {
         for (int i = 0; i < n; i++) {
             stk = new StringTokenizer(br.readLine());
             plate[i] = Integer.parseInt(stk.nextToken());
+            if (i + n < plate.length) {
+                plate[i + n] = plate[i];
+            }
         }
 
-        for (int i = 0; i < k - 1; i++) {
-            plate[i + n] = plate[i];
+        List<Integer> pick = new LinkedList<>();
+
+        for (int i = 0; i < k; i++) {
+            pick.add(plate[i]);
         }
 
-        int left = 0;
-        int right = 0;
+        System.out.println("PIC => " + pick);
 
-        int start = 0;
-        int end = k - 1;
-
-        boolean isCoupon = false;
+        int cursor = pick.size() - 1;
         while (true) {
-            Set<Integer> set = new HashSet<>();
-            for (int i = 0; i < k + 1; i++) {
-                if (left == right) right++;
-                int leftValue = plate[left];
-                int rightValue = plate[right];
+            int left = 0;
+            int right = 1;
 
-//                System.out.println("Start = [" + start + "], End = [" + end + "], " + "Left = [" + left + "], Right = [" + right + "]");
-//                System.out.println("Left Value = [" + leftValue + "], Right Value = [" + rightValue + "]");
+            pick.remove(0);
+            pick.add(plate[++cursor]);
 
-                if (leftValue == c || rightValue == c) {
-                    isCoupon = true;
-                }
 
-                set.add(leftValue);
-                set.add(rightValue);
-                if (leftValue == rightValue) {
-                    left++;
-                    start++;
-                    end++;
-//                    right++;
-                    isCoupon = false;
-                    break;
-                } else {
-//                    && right == left + 1
-                    if (right == end) {
-//                        if (!isCoupon) {
-//                            System.out.println(set.size() + 1);
-//                            return;
-//                        } else {
-////                            for (int j = left; j <= right; j++) {
-////                                System.out.print(plate[j] + " ");
-////                            }
-////                            System.out.println();
-//                            left++;
+//            if(!pick.contains(c)) {
+//                pick.add(c);
+//            }
+
+            System.out.println("PIC => " + pick);
+
 //
-//                            right = left + 1;
-//                            isCoupon = false;
-//                            break;
-//                        }
-                        if(right == left + 1) {
 
-                            if(!isCoupon) {
-                                System.out.println(set.size() + 1);
-                                return;
-                            }
-//                            for (int j = start; j <= end; j++) {
-//                                System.out.print(plate[j] + " ");
-//                            }
-//                            System.out.println(isCoupon);
-                            start++;
-                            end++;
-                            left = start;
-//                            right++;
-                            isCoupon = false;
-                            break;
-                        } else {
-                            left++;
-                        }
-                    } else {
-                        right++;
-                    }
-                }
-            }
-//            System.out.println(plate.length + " / " + start + " / " + n);
-//            System.out.println("===================================================");
-
-            if (start == n) {
-                System.out.println(set.size());
-                return;
-            }
-//            if (test == 5) {
-//                System.out.println("종료");
+//            HashSet<Integer> set = new HashSet<>(pick);
+//            set.add(c);
+//            System.out.println("SET => " + set + ", Size => " + set.size());
+            System.out.println("========================================");
+//            if(set.size() == k + 1) {
+//                System.out.println(k + 1);
 //                return;
 //            }
+            if (cursor + 1 == plate.length) {
+                System.out.println(pick.size());
+                return;
+            }
 
         }
 
