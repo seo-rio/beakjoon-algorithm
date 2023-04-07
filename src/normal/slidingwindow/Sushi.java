@@ -29,7 +29,7 @@ public class Sushi {
             }
         }
 
-        List<Integer> pick = new ArrayList<>();
+        List<Integer> pick = new LinkedList<>();
         Map<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < k; i++) {
